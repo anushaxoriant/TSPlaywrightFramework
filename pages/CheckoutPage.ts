@@ -1,9 +1,30 @@
-const BasePage =
-    require('../base/BasePage');
+import {
+    Page,
+    Locator
+}
+from '@playwright/test';
 
-class CheckoutPage extends BasePage {
+import { BasePage }
+    from '../base/BasePage';
 
-    constructor(page) {
+export class CheckoutPage
+    extends BasePage {
+
+    private firstName: Locator;
+
+    private lastName: Locator;
+
+    private postalCode: Locator;
+
+    private continueButton: Locator;
+
+    private finishButton: Locator;
+
+    private completeHeader: Locator;
+
+    constructor(
+        page: Page
+    ) {
 
         super(page);
 
@@ -26,7 +47,8 @@ class CheckoutPage extends BasePage {
             page.locator('.complete-header');
     }
 
-    async checkout() {
+    async checkout()
+    : Promise<void> {
 
         await this.fill(
             this.firstName,
@@ -60,7 +82,8 @@ class CheckoutPage extends BasePage {
         );
     }
 
-    async isOrderSuccessful() {
+    async isOrderSuccessful()
+    : Promise<boolean> {
 
         return await this.completeHeader
             .filter({
@@ -70,5 +93,3 @@ class CheckoutPage extends BasePage {
             .isVisible();
     }
 }
-
-module.exports = CheckoutPage;

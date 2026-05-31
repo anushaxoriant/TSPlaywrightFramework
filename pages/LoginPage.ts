@@ -1,9 +1,26 @@
-const BasePage =
-    require('../base/BasePage');
+import {
+    Page,
+    Locator
+}
+from '@playwright/test';
 
-class LoginPage extends BasePage {
+import { BasePage }
+    from '../base/BasePage';
 
-    constructor(page) {
+export class LoginPage
+    extends BasePage {
+
+    private usernameInput: Locator;
+
+    private passwordInput: Locator;
+
+    private loginButton: Locator;
+
+    private inventoryContainer: Locator;
+
+    constructor(
+        page: Page
+    ) {
 
         super(page);
 
@@ -20,7 +37,10 @@ class LoginPage extends BasePage {
             page.locator('.inventory_list');
     }
 
-    async login(username, password) {
+    async login(
+        username: string,
+        password: string
+    ): Promise<void> {
 
         await this.fill(
             this.usernameInput,
@@ -37,7 +57,8 @@ class LoginPage extends BasePage {
         );
     }
 
-    async isInventoryPageLoaded() {
+    async isInventoryPageLoaded()
+    : Promise<boolean> {
 
         await this.page.waitForURL(
             '**/inventory.html'
@@ -48,5 +69,3 @@ class LoginPage extends BasePage {
         );
     }
 }
-
-module.exports = LoginPage;

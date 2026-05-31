@@ -1,4 +1,4 @@
-module.exports = {
+export const config = {
 
     baseUrl: 'https://www.saucedemo.com/',
 
@@ -11,4 +11,4 @@ module.exports = {
     headless: false,
 
     demoMode: true
-};
+}

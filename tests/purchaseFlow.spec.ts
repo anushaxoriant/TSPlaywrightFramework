@@ -1,54 +1,39 @@
-// tests/purchaseFlow.spec.js
+import {
+    test,
+    expect
+}
+from '@playwright/test';
 
-const { test, expect } =
-    require('@playwright/test');
+import '../base/BaseTest';
 
-// =====================================
-// BASE TEST
-// =====================================
+import { BaseTest }
+    from '../base/BaseTest';
 
-require('../base/BaseTest');
+import { LoginPage }
+    from '../pages/LoginPage';
 
-const BaseTest =
-    require('../base/BaseTest');
+import { InventoryPage }
+    from '../pages/InventoryPage';
 
-// =====================================
-// PAGE OBJECTS
-// =====================================
+import { CartPage }
+    from '../pages/CartPage';
 
-const LoginPage =
-    require('../pages/LoginPage');
+import { CheckoutPage }
+    from '../pages/CheckoutPage';
 
-const InventoryPage =
-    require('../pages/InventoryPage');
+import { config }
+    from '../utils/config';
 
-const CartPage =
-    require('../pages/CartPage');
+import { Logger }
+    from '../utils/Logger';
 
-const CheckoutPage =
-    require('../pages/CheckoutPage');
-
-// =====================================
-// UTILITIES
-// =====================================
-
-const config =
-    require('../utils/config');
-
-const Logger =
-    require('../utils/Logger');
-
-// =====================================
-// TEST SUITE
-// =====================================
+    test.setTimeout(
+    60000
+);
 
 test.describe(
-    'Enterprise Playwright Hooks Framework',
+    'TypeScript Playwright Framework',
     () => {
-
-    // =====================================
-    // TEST 1
-    // =====================================
 
     test(
         'TC_1: Verify Login',
@@ -58,17 +43,13 @@ test.describe(
             BaseTest.page;
 
         Logger.info(
-            'BEFORE TEST - Login Validation'
+            'BEFORE TEST: Login Validation'
         );
 
         try {
 
             const loginPage =
                 new LoginPage(page);
-
-            // =================================
-            // TEST EXECUTION
-            // =================================
 
             await test.step(
                 'Login to application',
@@ -79,10 +60,6 @@ test.describe(
                     config.password
                 );
             });
-
-            // =================================
-            // VALIDATION
-            // =================================
 
             await test.step(
                 'Validate inventory page',
@@ -95,10 +72,10 @@ test.describe(
             });
 
             Logger.info(
-                'AFTER TEST - Login Successful'
+                'AFTER TEST: Login Successful'
             );
         }
-        catch (error) {
+        catch (error: any) {
 
             Logger.error(
                 `Verify Login Failed:
@@ -109,10 +86,6 @@ test.describe(
         }
     });
 
-    // =====================================
-    // TEST 2
-    // =====================================
-
     test(
         'TC_2: Verify Add Backpack To Cart',
         async () => {
@@ -121,7 +94,7 @@ test.describe(
             BaseTest.page;
 
         Logger.info(
-            'BEFORE TEST - Add Backpack'
+            'BEFORE TEST: Add Backpack'
         );
 
         try {
@@ -131,10 +104,6 @@ test.describe(
 
             const inventoryPage =
                 new InventoryPage(page);
-
-            // =================================
-            // LOGIN
-            // =================================
 
             await test.step(
                 'Login to application',
@@ -146,10 +115,6 @@ test.describe(
                 );
             });
 
-            // =================================
-            // ADD ITEM
-            // =================================
-
             await test.step(
                 'Add backpack to cart',
                 async () => {
@@ -157,10 +122,6 @@ test.describe(
                 await inventoryPage
                     .addItemToCart();
             });
-
-            // =================================
-            // VALIDATION
-            // =================================
 
             await test.step(
                 'Validate cart badge',
@@ -173,10 +134,10 @@ test.describe(
             });
 
             Logger.info(
-                'AFTER TEST - Backpack Added'
+                'AFTER TEST: Backpack Added'
             );
         }
-        catch (error) {
+        catch (error: any) {
 
             Logger.error(
                 `Add Backpack Failed:
@@ -187,10 +148,6 @@ test.describe(
         }
     });
 
-    // =====================================
-    // TEST 3
-    // =====================================
-
     test(
         'TC_3: Verify Backpack Displayed In Cart',
         async () => {
@@ -199,7 +156,7 @@ test.describe(
             BaseTest.page;
 
         Logger.info(
-            'BEFORE TEST - Cart Validation'
+            'BEFORE TEST: Cart Validation'
         );
 
         try {
@@ -213,10 +170,6 @@ test.describe(
             const cartPage =
                 new CartPage(page);
 
-            // =================================
-            // LOGIN
-            // =================================
-
             await test.step(
                 'Login to application',
                 async () => {
@@ -227,10 +180,6 @@ test.describe(
                 );
             });
 
-            // =================================
-            // ADD TO CART
-            // =================================
-
             await test.step(
                 'Add backpack to cart',
                 async () => {
@@ -239,10 +188,6 @@ test.describe(
                     .addItemToCart();
             });
 
-            // =================================
-            // OPEN CART
-            // =================================
-
             await test.step(
                 'Open cart page',
                 async () => {
@@ -250,10 +195,6 @@ test.describe(
                 await inventoryPage
                     .openCart();
             });
-
-            // =================================
-            // VALIDATION
-            // =================================
 
             await test.step(
                 'Validate backpack in cart',
@@ -266,10 +207,10 @@ test.describe(
             });
 
             Logger.info(
-                'AFTER TEST - Cart Validation Successful'
+                'AFTER TEST: Cart Validation Successful'
             );
         }
-        catch (error) {
+        catch (error: any) {
 
             Logger.error(
                 `Cart Validation Failed:
@@ -280,10 +221,6 @@ test.describe(
         }
     });
 
-    // =====================================
-    // TEST 4
-    // =====================================
-
     test(
         'TC_4: Verify Purchase Flow',
         async () => {
@@ -292,7 +229,7 @@ test.describe(
             BaseTest.page;
 
         Logger.info(
-            'BEFORE TEST - Purchase Flow'
+            'BEFORE TEST: Purchase Flow'
         );
 
         try {
@@ -309,10 +246,6 @@ test.describe(
             const checkoutPage =
                 new CheckoutPage(page);
 
-            // =================================
-            // LOGIN
-            // =================================
-
             await test.step(
                 'Login to application',
                 async () => {
@@ -323,10 +256,6 @@ test.describe(
                 );
             });
 
-            // =================================
-            // ADD ITEM
-            // =================================
-
             await test.step(
                 'Add backpack to cart',
                 async () => {
@@ -334,10 +263,6 @@ test.describe(
                 await inventoryPage
                     .addItemToCart();
             });
-
-            // =================================
-            // OPEN CART
-            // =================================
 
             await test.step(
                 'Open cart page',
@@ -347,10 +272,6 @@ test.describe(
                     .openCart();
             });
 
-            // =================================
-            // CHECKOUT
-            // =================================
-
             await test.step(
                 'Proceed to checkout',
                 async () => {
@@ -359,10 +280,6 @@ test.describe(
                     .clickCheckout();
             });
 
-            // =================================
-            // COMPLETE PURCHASE
-            // =================================
-
             await test.step(
                 'Complete checkout flow',
                 async () => {
@@ -370,10 +287,6 @@ test.describe(
                 await checkoutPage
                     .checkout();
             });
-
-            // =================================
-            // VALIDATION
-            // =================================
 
             await test.step(
                 'Validate order success',
@@ -391,10 +304,10 @@ test.describe(
             });
 
             Logger.info(
-                'AFTER TEST - Purchase Successful'
+                'AFTER TEST: Purchase Successful'
             );
         }
-        catch (error) {
+        catch (error: any) {
 
             Logger.error(
                 `Purchase Flow Failed:

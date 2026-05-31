@@ -1,9 +1,22 @@
-const BasePage =
-    require('../base/BasePage');
+import {
+    Page,
+    Locator
+}
+from '@playwright/test';
 
-class CartPage extends BasePage {
+import { BasePage }
+    from '../base/BasePage';
 
-    constructor(page) {
+export class CartPage
+    extends BasePage {
+
+    private checkoutButton: Locator;
+
+    private backpackLabel: Locator;
+
+    constructor(
+        page: Page
+    ) {
 
         super(page);
 
@@ -16,7 +29,8 @@ class CartPage extends BasePage {
             );
     }
 
-    async clickCheckout() {
+    async clickCheckout()
+    : Promise<void> {
 
         await this.click(
             this.checkoutButton
@@ -27,7 +41,8 @@ class CartPage extends BasePage {
         );
     }
 
-    async isBackpackDisplayed() {
+    async isBackpackDisplayed()
+    : Promise<boolean> {
 
         return await this.backpackLabel
             .filter({
@@ -37,5 +52,3 @@ class CartPage extends BasePage {
             .isVisible();
     }
 }
-
-module.exports = CartPage;

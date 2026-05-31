@@ -1,9 +1,24 @@
-const BasePage =
-    require('../base/BasePage');
+import {
+    Page,
+    Locator
+}
+from '@playwright/test';
 
-class InventoryPage extends BasePage {
+import { BasePage }
+    from '../base/BasePage';
 
-    constructor(page) {
+export class InventoryPage
+    extends BasePage {
+
+    private backpackButton: Locator;
+
+    private cartBadge: Locator;
+
+    private cartLink: Locator;
+
+    constructor(
+        page: Page
+    ) {
 
         super(page);
 
@@ -23,14 +38,16 @@ class InventoryPage extends BasePage {
             );
     }
 
-    async addItemToCart() {
+    async addItemToCart()
+    : Promise<void> {
 
         await this.click(
             this.backpackButton
         );
     }
 
-    async openCart() {
+    async openCart()
+    : Promise<void> {
 
         await this.click(
             this.cartLink
@@ -41,12 +58,11 @@ class InventoryPage extends BasePage {
         );
     }
 
-    async isCartBadgeDisplayed() {
+    async isCartBadgeDisplayed()
+    : Promise<boolean> {
 
         return await this.isVisible(
             this.cartBadge
         );
     }
 }
-
-module.exports = InventoryPage;
