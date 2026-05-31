@@ -9,22 +9,17 @@ export default defineConfig({
 
     timeout: 60000,
 
-    expect: {
-
-        timeout: 10000
-    },
-
-    fullyParallel: false,
-
     reporter: [
 
         ['list'],
-        ['html']
+
+        ['allure-playwright']
     ],
 
     use: {
 
         headless: false,
+
         trace:
             'retain-on-failure'
     }
