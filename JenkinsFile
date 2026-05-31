@@ -50,15 +50,14 @@ pipeline {
                 bat 'npx playwright test'
             }
         }
+
+        stage('Verify Report') {
+        steps {
+            bat 'dir'
+            bat 'dir playwright-report'
+        }
     }
-
-    stage('Verify Report') {
-
-    steps {
-
-        bat 'dir playwright-report'
     }
-}
 
 post {
 
