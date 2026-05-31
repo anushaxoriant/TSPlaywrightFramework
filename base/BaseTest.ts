@@ -87,16 +87,6 @@ test.afterEach(async ({ }, testInfo) => {
         testInfo.status !==
         testInfo.expectedStatus
     ) {
-
-        await BaseTest.page
-            .screenshot({
-
-            path:
-            `screenshots/${testInfo.title}.png`,
-
-            fullPage: true
-        });
-
         Logger.error(
             `Test Failed:
             ${testInfo.title}`
