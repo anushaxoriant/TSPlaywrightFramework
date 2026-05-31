@@ -27,10 +27,6 @@ import { config }
 import { Logger }
     from '../utils/Logger';
 
-    test.setTimeout(
-    60000
-);
-
 test.describe(
     'TypeScript Playwright Framework',
     () => {
