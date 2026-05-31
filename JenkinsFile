@@ -15,7 +15,7 @@ pipeline {
 
                 git branch: 'main',
 
-                url: 'https://github.com/anushaxoriant/JSPlaywrightFramework.git'
+                url: 'https://github.com/anushaxoriant/TSPlaywrightFramework.git'
             }
         }
 
@@ -35,11 +35,19 @@ pipeline {
             }
         }
 
+        stage('Compile TypeScript') {
+
+            steps {
+
+                bat 'npx tsc --noEmit'
+            }
+        }
+
         stage('Run Tests') {
 
             steps {
 
-                bat 'npx playwright test --reporter=html'
+                bat 'npx playwright test'
             }
         }
     }
@@ -48,20 +56,10 @@ pipeline {
 
         always {
 
-            publishHTML(target: [
-
-                reportDir: 'playwright-report',
-
-                reportFiles: 'index.html',
-
-                reportName: 'Playwright HTML Report',
-
-                keepAll: true,
-
-                alwaysLinkToLastBuild: true,
-
-                allowMissing: false
-            ])
+            archiveArtifacts(
+                artifacts: 'playwright-report/**',
+                allowEmptyArchive: true
+            );
         }
     }
 }
